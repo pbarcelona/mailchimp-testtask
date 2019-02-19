@@ -36,6 +36,8 @@ class MailChimpList extends MailChimpEntity
      * @ORM\Id()
      * @ORM\Column(name="id", type="guid")
      * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\OneToMany(targetEntity="MailChimpListMember", mappedBy="list_id")
+     * @ORM\JoinColumn(name="id", referencedColumnName="list_id", onDelete="CASCADE")
      *
      * @var string
      */

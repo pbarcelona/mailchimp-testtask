@@ -37,10 +37,10 @@ class ListsControllerTest extends ListTestCase
 
         $content = \json_decode($this->response->getContent(), true);
 
-        $this->assertResponseStatus(400);
+        $this->assertResponseStatus(422);
         self::assertArrayHasKey('message', $content);
         self::assertArrayHasKey('errors', $content);
-        self::assertEquals('Invalid data given', $content['message']);
+        self::assertEquals('Unprocessable Entity', $content['message']);
 
         foreach (\array_keys(static::$listData) as $key) {
             if (\in_array($key, static::$notRequired, true)) {
@@ -160,10 +160,10 @@ class ListsControllerTest extends ListTestCase
         $this->put(\sprintf('/mailchimp/lists/%s', $list->getId()), ['visibility' => 'invalid']);
         $content = \json_decode($this->response->content(), true);
 
-        $this->assertResponseStatus(400);
+        $this->assertResponseStatus(422);
         self::assertArrayHasKey('message', $content);
         self::assertArrayHasKey('errors', $content);
         self::assertArrayHasKey('visibility', $content['errors']);
-        self::assertEquals('Invalid data given', $content['message']);
+        self::assertEquals('Unprocessable Entity', $content['message']);
     }
 }
